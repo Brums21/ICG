@@ -12,7 +12,12 @@ const sceneElements = {
     car: null
 };
 
-helper.initEmptyScene(sceneElements);
+function intensity(ev) {
+    this.amb.intensity = Number.parseInt(ev.target.value) / 100
+}
+
+const amb = helper.initEmptyScene(sceneElements, 100);
+document.getElementById("inputDay").oninput = ((intensity).bind({amb}))
 load3DObjects(sceneElements.sceneGraph);
 requestAnimationFrame(computeFrame);
 
@@ -112,6 +117,7 @@ function createPassadeira(){
     faixa.rotation.x = -Math.PI/2;
 
     //supondo que isto esta em coordenadas (0,0,0)
+    //usar instaced para fazer com que o numero de calls seja menor
 
     faixa.position.set(0, 0.1, -12);
 
@@ -126,6 +132,17 @@ function createPassadeira(){
 
     const faixa5 = faixa.clone();
     faixa5.position.set(0, 0.1, 12);
+
+    faixa.castShadow = true;
+    faixa.receiveShadow = true;
+    faixa2.castShadow = true;
+    faixa2.receiveShadow = true;
+    faixa3.castShadow = true;
+    faixa3.receiveShadow = true;
+    faixa4.castShadow = true;
+    faixa4.receiveShadow = true;
+    faixa5.castShadow = true;
+    faixa5.receiveShadow = true;
 
     passadeira.add(faixa);
     passadeira.add(faixa2);
@@ -192,9 +209,6 @@ function createEntrocamento(){
 
     plano2.castShadow = true;
     plano2.receiveShadow = true;
-
-    passadeira2.castShadow = true;
-    passadeira2.receiveShadow = true;
     
     entrocamento.add(passadeira2);
     entrocamento.add(plano2);
@@ -211,9 +225,6 @@ function createEntrocamento(){
 
     plano3.castShadow = true;
     plano3.receiveShadow = true;
-
-    passadeira3.castShadow = true;
-    passadeira3.receiveShadow = true;
     
     entrocamento.add(passadeira3);
     entrocamento.add(plano3);
@@ -232,9 +243,6 @@ function createEntrocamento(){
 
     plano4.castShadow = true;
     plano4.receiveShadow = true;
-
-    passadeira4.castShadow = true;
-    passadeira4.receiveShadow = true;
     
     entrocamento.add(passadeira4);
     entrocamento.add(plano4);
@@ -251,9 +259,6 @@ function createEntrocamento(){
 
     plano5.castShadow = true;
     plano5.receiveShadow = true;
-
-    passadeira5.castShadow = true;
-    passadeira5.receiveShadow = true;
     
     entrocamento.add(passadeira5);
     entrocamento.add(plano5);
@@ -289,9 +294,6 @@ function createCruzamento(){
     const passadeira2 = createPassadeira();
     passadeira2.position.set(0, 0, -25);
     passadeira2.rotation.y = Math.PI/2;
-
-    passadeira2.receiveShadow = true;
-    passadeira2.receiveShadow = true;
     
     cruz.add(passadeira2);
     cruz.add(plano2);
@@ -318,6 +320,9 @@ function createGround(){
     chao1.rotation.x = -Math.PI/2;
     chao1.position.set(200+7.5,0,-320-7.5);
 
+    chao1.castShadow = true;
+    chao1.receiveShadow = true;
+
     //seccao2
     const texture2 = new THREE.TextureLoader().load('textures/grass.jpg');
 
@@ -331,6 +336,9 @@ function createGround(){
     const chao2 = new THREE.Mesh(geometry2, material2);
     chao2.rotation.x = -Math.PI/2;
     chao2.position.set(350+7.5,0,-120);
+
+    chao2.castShadow = true;
+    chao2.receiveShadow = true;
 
     //seccao3
     const texture3 = new THREE.TextureLoader().load('textures/ground.jpg');
@@ -346,6 +354,9 @@ function createGround(){
     chao3.rotation.x = -Math.PI/2;
     chao3.position.set(150,0,-120);
 
+    chao3.castShadow = true;
+    chao3.receiveShadow = true;
+
     //seccao4
 
     const texture4 = new THREE.TextureLoader().load('textures/grass.jpg');
@@ -359,6 +370,9 @@ function createGround(){
     const chao4 = new THREE.Mesh(geometry4, material4);
     chao4.rotation.x = -Math.PI/2;
     chao4.position.set(350+7.5,0,200+7.5);
+
+    chao4.castShadow = true;
+    chao4.receiveShadow = true;
 
     //seccao5
 
@@ -375,6 +389,9 @@ function createGround(){
     chao5.rotation.x = -Math.PI/2;
     chao5.position.set(150,0,120);
 
+    chao5.castShadow = true;
+    chao5.receiveShadow = true;
+
     //seccao6
 
     const texture6 = new THREE.TextureLoader().load('textures/grass.jpg');
@@ -389,6 +406,9 @@ function createGround(){
     chao6.rotation.x = -Math.PI/2;
     chao6.position.set(150,0,320+7.5);
 
+    chao6.castShadow = true;
+    chao6.receiveShadow = true;
+
     //seccao7
 
     const texture7 = new THREE.TextureLoader().load('textures/grass.jpg');
@@ -402,6 +422,9 @@ function createGround(){
     const chao7 = new THREE.Mesh(geometry7, material7);
     chao7.rotation.x = -Math.PI/2;
     chao7.position.set(-150,0,-320-7.5);
+
+    chao7.castShadow = true;
+    chao7.receiveShadow = true;
 
     //seccao8
 
@@ -418,6 +441,9 @@ function createGround(){
     chao8.rotation.x = -Math.PI/2;
     chao8.position.set(-150,0,-120);
 
+    chao8.castShadow = true;
+    chao8.receiveShadow = true;
+
     //seccao9
 
     const texture9 = new THREE.TextureLoader().load('textures/ground.jpg');
@@ -433,6 +459,9 @@ function createGround(){
     chao9.rotation.x = -Math.PI/2;
     chao9.position.set(-150,0,120);
 
+    chao9.castShadow = true;
+    chao9.receiveShadow = true;
+
     //seccao10
 
     const texture10 = new THREE.TextureLoader().load('textures/grass.jpg');
@@ -446,6 +475,9 @@ function createGround(){
     const chao10 = new THREE.Mesh(geometry10, material10);
     chao10.rotation.x = -Math.PI/2;
     chao10.position.set(-150,0,320+7.5);
+
+    chao10.castShadow = true;
+    chao10.receiveShadow = true;
 
     //seccao11
 
@@ -461,6 +493,9 @@ function createGround(){
     chao11.rotation.x = -Math.PI/2;
     chao11.position.set(-350-7.5,0,-320-7.5);
 
+    chao11.castShadow = true;
+    chao11.receiveShadow = true;
+
     //seccao12
 
     const texture12 = new THREE.TextureLoader().load('textures/grass.jpg');
@@ -475,6 +510,9 @@ function createGround(){
     chao12.rotation.x = -Math.PI/2;
     chao12.position.set(-350-7.5,0,0);
 
+    chao12.castShadow = true;
+    chao12.receiveShadow = true;
+
     //seccao13
     const texture13 = new THREE.TextureLoader().load('textures/grass.jpg');
 
@@ -487,6 +525,9 @@ function createGround(){
     const chao13 = new THREE.Mesh(geometry13, material13);
     chao13.rotation.x = -Math.PI/2;
     chao13.position.set(-350-7.5,0,320+7.5);
+
+    chao13.castShadow = true;
+    chao13.receiveShadow = true;
 
     ground.add(chao1);
     ground.add(chao2);
@@ -501,7 +542,6 @@ function createGround(){
     ground.add(chao11);
     ground.add(chao12);
     ground.add(chao13);
-
 
     return ground;
 }
@@ -646,133 +686,79 @@ function createRoad(){
     return road;
 }
 
-function createTree(){
+function createFrontWheels(){
+    const wheels = new THREE.Group();
 
-    const tree = new THREE.Group();
+    const frontWheelr = createWheel();
+    const frontWheell = createWheel();
 
-    //adicionar textura ao tronco
-    const texture_loadert = new THREE.TextureLoader();
-    const texture_trunk = texture_loadert.load( "textures/tree_trunk.jpg" );
+    frontWheelr.position.z = -5;
+    frontWheelr.position.x = 2.5;
 
-    //trunk of the three
-    const cilinder = new THREE.CylinderGeometry( 1, 1, 5, 20 );
-    const material_trunk = new THREE.MeshPhongMaterial( {color: 0x964b00, map: texture_trunk} );
-    const tree_trunk = new THREE.Mesh( cilinder, material_trunk );
+    wheels.add(frontWheell);
 
-    tree_trunk.position.x = 0;
-    tree_trunk.position.z = 0;
-    tree_trunk.position.y = 2.5; // acima do plano
+    frontWheell.position.z = -5;
+    frontWheell.position.x = -2.5;
 
-    tree_trunk.castShadow = true;
-    tree_trunk.receiveShadow = true;
+    wheels.add(frontWheelr);
 
-    tree.add(tree_trunk);
-
-    //leafs part of the tree -> three cones one on top of the other
-
-    // adicionar foliage a parte de cima da arvore:
-    const texture_loader = new THREE.TextureLoader();
-    const texture_foliage = texture_loader.load( "textures/folliage.jpg" );
-
-    //top of the leafs:
-    const cone_top = new THREE.ConeGeometry(2, 3.5, 8, 1);
-    const material_leafs_top = new THREE.MeshPhongMaterial( {color: 0x8fce00, side: THREE.DoubleSide, map: texture_foliage} );
-    const leaf_top = new THREE.Mesh(cone_top, material_leafs_top);
-
-    leaf_top.position.x = 0;
-    leaf_top.position.z = 0;
-    leaf_top.position.y = 12;
-
-    leaf_top.castShadow = true;
-    leaf_top.receiveShadow = true;
-
-    tree.add(leaf_top);
-
-    //mid part of the leafs -> cilinder and not cone
-    const cylinder = new THREE.CylinderGeometry(1, 3, 3, 8);
-    const material_leafs_mid = new THREE.MeshPhongMaterial( {color: 0x8fce00, side: THREE.DoubleSide, map: texture_foliage } );
-    const leaf_mid = new THREE.Mesh(cylinder, material_leafs_mid);
-
-    leaf_mid.position.x = 0;
-    leaf_mid.position.z = 0;
-    leaf_mid.position.y = 9;
-
-    leaf_mid.castShadow = true;
-    leaf_mid.receiveShadow = true;
-
-    tree.add(leaf_mid);
-
-
-    //base part of the leafs
-    const cylinder_base = new THREE.CylinderGeometry(1.5, 3.5, 3, 8);
-    const material_leafs_base = new THREE.MeshPhongMaterial( {color: 0x8fce00, side: THREE.DoubleSide, map: texture_foliage } );
-    const leaf_base = new THREE.Mesh(cylinder_base, material_leafs_base);
-
-    leaf_base.position.x = 0;
-    leaf_base.position.z = 0;
-    leaf_base.position.y = 6;
-
-    leaf_base.castShadow = true;
-    leaf_base.receiveShadow = true;
-
-    tree.add(leaf_base);
-
-    tree.scale.set(1.75, 1.75, 1.75);
-
-    return tree;
+    return wheels;
 }
 
-function createCar(){
+function createCar(cor){
     const car = new THREE.Group();  // if we move the group, we move the whole car!
 
     //rodas do carro
 
     const backWheelr = createWheel();
     const backWheell = createWheel();
-    const frontWheelr = createWheel();
-    const frontWheell = createWheel();
 
-    backWheelr.position.z = -5;
+    backWheelr.position.z = 5;
     backWheelr.position.x = 2.5;
 
     car.add(backWheelr);
 
-    backWheell.position.z = -5;
+    backWheell.position.z = 5;
     backWheell.position.x = -2.5;
 
     car.add(backWheell);
 
-    frontWheelr.position.z = 5;
-    frontWheelr.position.x = 2.5;
-
-    car.add(frontWheell);
-
-    frontWheell.position.z = 5;
-    frontWheell.position.x = -2.5;
-
-    car.add(frontWheelr);
-
     //criar parte baixo do carro
 
-    const cabin = new THREE.Mesh(
+    const cabinbot = new THREE.Mesh(
         new THREE.BoxGeometry(15, 4, 7),
-        new THREE.MeshPhongMaterial({color: 0xe06666})
+        new THREE.MeshPhongMaterial({color: cor})
     );
+    //adicionar textura a isto
 
-    cabin.castShadow = true;
-    cabin.receiveShadow = true;
+    cabinbot.castShadow = true;
+    cabinbot.receiveShadow = true;
 
-    cabin.position.x = 0;
-    cabin.position.y = 4;
-    cabin.position.z = 0;
+    cabinbot.position.x = 0;
+    cabinbot.position.y = 4;
+    cabinbot.position.z = 0;
 
-    cabin.rotateOnAxis(new THREE.Vector3(0,1,0), Math.PI/2);
+    cabinbot.rotateOnAxis(new THREE.Vector3(0,1,0), Math.PI/2);
 
-    car.add(cabin);
-
-    car.name = "carro"
+    car.add(cabinbot);
 
     //TODO adicionar luzes ao carro
+
+    const spotLight = new THREE.SpotLight('rgb(255, 209, 43)', 0.5);
+    spotLight.position.set(1, 7.6, -7.6);
+
+    spotLight.target.position.set(1,7.6,-160);
+
+    spotLight.castShadow = true;
+    spotLight.shadow.camera.near = 0.1;
+    spotLight.shadow.camera.far = 500;
+    spotLight.shadow.camera.left = -500;
+    spotLight.shadow.camera.right = 500;
+    spotLight.shadow.camera.top = 500;
+    spotLight.shadow.camera.bottom = -500;
+
+    car.add(spotLight);
+    car.add(spotLight.target);
 
     return car;
 
@@ -795,11 +781,17 @@ function createBuilding1(){
     const outside = new THREE.Mesh( geometry, material2 );
     outside.position.y = 35;
 
+    outside.castShadow = true;
+    outside.receiveShadow = true;
+
     geometry = new THREE.BoxGeometry(6, 50, 6); // same height, different x and z
     const inside1 = new THREE.Mesh( geometry, material );
     inside1.position.y = 45;
     inside1.position.z = 16.25;
     inside1.position.x = 5;
+
+    inside1.castShadow = true;
+    inside1.receiveShadow = true;
 
     geometry = new THREE.BoxGeometry(6, 50, 6); // same height, different x and z
     const inside8 = new THREE.Mesh( geometry, material );
@@ -807,32 +799,54 @@ function createBuilding1(){
     inside8.position.z = -16.25;
     inside8.position.x = 5;
 
+    inside8.castShadow = true;
+    inside8.receiveShadow = true;
+
     geometry = new THREE.BoxGeometry(6, 50, 6); // same height, different x and z
     const inside2 = new THREE.Mesh( geometry, material );
     inside2.position.y = 45;
     inside2.position.x = 20;
+
+    inside2.castShadow = true;
+    inside2.receiveShadow = true;
 
     geometry = new THREE.BoxGeometry(6, 70, 40); // same height, different x and z
     const inside3 = new THREE.Mesh( geometry, material );
     inside3.position.y = 35;
     inside3.position.x = -20;
 
+    inside3.castShadow = true;
+    inside3.receiveShadow = true;
+
     //retirar buracos
     geometry = new THREE.BoxGeometry(40, 5, 40);
     const inside4 = new THREE.Mesh( geometry, material);
     inside4.position.y = 32.5;
 
+    inside4.castShadow = true;
+    inside4.receiveShadow = true;
+
     const inside5 = inside4.clone();
     inside5.position.y = 50;
+
+    inside5.castShadow = true;
+    inside5.receiveShadow = true;
+
 
     //top and under
     const geometryup =  new THREE.BoxGeometry(40, 20, 40);
     const inside6 = new THREE.Mesh( geometryup, material);
     inside6.position.y = 10;
 
+    inside6.castShadow = true;
+    inside6.receiveShadow = true;
+
     const geometrydown =  new THREE.BoxGeometry(46, 7.5, 40);
     const inside7 = new THREE.Mesh( geometrydown, material);
     inside7.position.y = 70;
+
+    inside7.castShadow = true;
+    inside7.receiveShadow = true;
 
     //dor hole
     const door = new THREE.Group();
@@ -840,17 +854,29 @@ function createBuilding1(){
     const hole = new THREE.BoxGeometry(5, 15, 16);
     const hole_ = new THREE.Mesh(hole, material2);
     
+    hole_.castShadow = true;
+    hole_.receiveShadow = true;
+    
     let geometry_door = new THREE.BoxGeometry(1, 15, 1);
     const material_door = new THREE.MeshPhongMaterial({color: 0xC0C0C0});
     const aba1 = new THREE.Mesh(geometry_door, material_door);
     aba1.position.x = 2.7;
     aba1.position.z = -7.5;
 
+    aba1.castShadow = true;
+    aba1.receiveShadow = true;
+
     const aba2 = aba1.clone();
     aba2.position.z = 7.5;
 
+    aba2.castShadow = true;
+    aba2.receiveShadow = true;
+
     const aba3 = aba1.clone();
     aba3.position.z = 0;
+
+    aba3.castShadow = true;
+    aba3.receiveShadow = true;
 
     door.add(hole_);
     door.add(aba1);
@@ -897,6 +923,14 @@ function createSingleJanela(){
     const janela1_outside = new THREE.Mesh(geometry_outside, material_outside);
     janela1_outside.position.z = -0.3;
 
+    
+    janela1.castShadow = true;
+    janela1.receiveShadow = true;
+
+    janela1_outside.castShadow = true;
+    janela1_outside.receiveShadow = true;
+
+
     //adicionar pecas dos lados das janelas para parecer mais natural?
 
     janela.add(janela1);
@@ -939,6 +973,9 @@ function createPorta(){
     const doorMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, map: texture}); //branco
     const doorMesh = new THREE.Mesh( doorGeometry, doorMaterial );
 
+    doorMesh.castShadow = true;
+    doorMesh.receiveShadow = true;
+
     porta.add(doorMesh);
 
     return doorMesh;
@@ -962,11 +999,17 @@ function createBuilding2(){
     const upside = new THREE.Mesh(geometry_up, material_up);
     upside.position.y = 61;
 
+    upside.castShadow = true;
+    upside.receiveShadow = true;
+
     const geometry_up1 = new THREE.BoxGeometry(42, 2, 22);
     const upside1 = new THREE.Mesh(geometry_up1, material_up);
     upside1.position.x = 10;
     upside1.position.z = 10;
     upside1.position.y = 61;
+
+    upside1.castShadow = true;
+    upside1.receiveShadow = true;
 
     const texture = new THREE.TextureLoader().load('textures/wall_building.jpg');
    
@@ -981,12 +1024,18 @@ function createBuilding2(){
     const outside = new THREE.Mesh( geometry, material );
     outside.position.y = 30;
 
+    outside.castShadow = true;
+    outside.receiveShadow = true;
+
     const geometry1 = new THREE.BoxGeometry(40, 60, 20);
     const material1 = new THREE.MeshPhongMaterial({map:texture});
     const outside1 = new THREE.Mesh( geometry1, material1 );
     outside1.position.x = 10;
     outside1.position.z = 10;
     outside1.position.y = 30;
+
+    outside1.castShadow = true;
+    outside1.receiveShadow = true;
 
     //adicionar janelas 
 
@@ -1059,20 +1108,32 @@ function createHouse1(){
     const mainhouse = new THREE.Mesh(geometry1, material1);
     mainhouse.position.y = 15;
 
+    mainhouse.castShadow = true;
+    mainhouse.receiveShadow = true;
+
     const geometry2 = new THREE.BoxGeometry(10, 15, 20); //pouca altura, so para colocar na parte de cima a cobrir as coisas, com um bocado de borda
     const material2 = new THREE.MeshPhongMaterial({color: 0x000});
     const sidehouse = new THREE.Mesh(geometry2, material2);
     sidehouse.position.set(15,7.5,-5);
+
+    sidehouse.castShadow = true;
+    sidehouse.receiveShadow = true;
 
     const geometry3 = new THREE.BoxGeometry(10, 2, 30); //pouca altura, so para colocar na parte de cima a cobrir as coisas, com um bocado de borda
     const material3 = new THREE.MeshPhongMaterial({color: 0xffffff});
     const tampamain = new THREE.Mesh(geometry3, material3);
     tampamain.position.set(15,16,0);
 
+    tampamain.castShadow = true;
+    tampamain.receiveShadow = true;
+
     const geometria_pilar = new THREE.BoxGeometry(2,15,2);
     const material_pilar = new THREE.MeshPhongMaterial({color: 0xffffff});
     const pilar = new THREE.Mesh(geometria_pilar, material_pilar);
     pilar.position.set(19,7.5,14);
+
+    pilar.castShadow = true;
+    pilar.receiveShadow = true;
 
     casa.add(mainhouse);
     casa.add(sidehouse);
@@ -1129,63 +1190,137 @@ function createBench(){
     return bench;
 }
 
-function createTreeQueue(){
-    const treefile = new THREE.Group();
+function roadTree(){
 
-    for (let i=1; i<=6; i++){
-        const tree = createTree();
-        tree.position.set(45*i-7.5, 0, 0);
-        treefile.add(tree);
+    //adicionar textura ao tronco
+    const texture_loadert = new THREE.TextureLoader();
+    const texture_trunk = texture_loadert.load( "textures/tree_trunk.jpg" );
+
+    const texture_loader = new THREE.TextureLoader();
+    const texture_foliage = texture_loader.load( "textures/folliage.jpg" );
+
+    //trunk of the three
+
+    //trunk
+    const cilinder = new THREE.CylinderGeometry( 1.25, 1.5, 6, 20 );
+    const material_trunk = new THREE.MeshBasicMaterial( {color: 0x964b00, map: texture_trunk} );
+    material_trunk.castShadow = true;
+    material_trunk.receiveShadow = true;
+    const tree_trunk = new THREE.InstancedMesh( cilinder, material_trunk, 48 );
+
+    tree_trunk.position.y = 3; // acima do plano
+
+    tree_trunk.castShadow = true;
+
+
+    //base leafs
+
+    const cylinder_base = new THREE.CylinderGeometry(2, 4, 4, 8);
+    const material_leafs_base = new THREE.MeshBasicMaterial( {color: 0x8fce00, side: THREE.DoubleSide, map: texture_foliage } );
+    material_leafs_base.castShadow = true;
+    material_leafs_base.receiveShadow = true;
+    const leaf_base = new THREE.InstancedMesh(cylinder_base, material_leafs_base, 48);
+
+    leaf_base.position.y = 8;
+
+    leaf_base.castShadow = true;
+
+    //mid leafs
+    const cylinder = new THREE.CylinderGeometry(1.5, 3.5, 4, 8);
+    const material_leafs_mid = new THREE.MeshBasicMaterial( {color: 0x8fce00, side: THREE.DoubleSide, map: texture_foliage } );
+    material_leafs_mid.castShadow = true;
+    material_leafs_mid.receiveShadow = true;
+    const leaf_mid = new THREE.InstancedMesh(cylinder, material_leafs_mid, 48);
+
+    leaf_mid.position.y = 12;
+
+    leaf_mid.castShadow = true;
+
+    //top leafs
+    const cone_top = new THREE.ConeGeometry(2.5, 5, 6, 1);
+    const material_leafs_top = new THREE.MeshBasicMaterial( {color: 0x8fce00, map: texture_foliage} );
+    material_leafs_top.castShadow = true;
+    material_leafs_top.receiveShadow = true;
+    const leaf_top = new THREE.InstancedMesh(cone_top, material_leafs_top, 48);
+
+    leaf_top.position.y = 16.5;
+
+    leaf_top.castShadow = true;
+
+    const positions = createTreeVector();
+
+    const dummy = new THREE.Object3D();
+    for (let i = 0; i < positions.length; i++) {
+        dummy.position.x= positions[i].x;
+        dummy.position.z= positions[i].z;
+
+        dummy.updateMatrix();
+        tree_trunk.setMatrixAt(i, dummy.matrix);
+        leaf_base.setMatrixAt(i, dummy.matrix);
+        leaf_mid.setMatrixAt(i, dummy.matrix);
+        leaf_top.setMatrixAt(i, dummy.matrix);
     }
 
-    return treefile;
+    const group = new THREE.Group().add(tree_trunk, leaf_base, leaf_mid, leaf_top);
+
+    return group;
+
 }
 
-function roadTrees(){
+function createTreeVector(){
 
-    const sceneGraph = new THREE.Group();
+    const positions = [
+        new THREE.Vector3(37.5, 0, -30),
+        new THREE.Vector3(-262.5, 0, -30),
+        new THREE.Vector3(82.5, 0, -30),
+        new THREE.Vector3(-217.5, 0, -30),
+        new THREE.Vector3(127.5, 0, -30),
+        new THREE.Vector3(-172.5, 0, -30),
+        new THREE.Vector3(172.5, 0, -30),
+        new THREE.Vector3(-127.5, 0, -30),
+        new THREE.Vector3(217.5, 0, -30),
+        new THREE.Vector3(-82.5, 0, -30),
+        new THREE.Vector3(262.5, 0, -30),
+        new THREE.Vector3(-37.5, 0, -30),
+        new THREE.Vector3(37.5, 0, 30),
+        new THREE.Vector3(-262.5, 0, 30),
+        new THREE.Vector3(82.5, 0, 30),
+        new THREE.Vector3(-217.5, 0, 30),
+        new THREE.Vector3(127.5, 0, 30),
+        new THREE.Vector3(-172.5, 0, 30),
+        new THREE.Vector3(172.5, 0, 30),
+        new THREE.Vector3(-127.5, 0, 30),
+        new THREE.Vector3(217.5, 0, 30),
+        new THREE.Vector3(-82.5, 0, 30),
+        new THREE.Vector3(262.5, 0, 30),
+        new THREE.Vector3(-37.5, 0, 30),
+        new THREE.Vector3(37.5, 0, -210),
+        new THREE.Vector3(-262.5, 0, -210),
+        new THREE.Vector3(82.5, 0, -210),
+        new THREE.Vector3(-217.5, 0, -210),
+        new THREE.Vector3(127.5, 0, -210),
+        new THREE.Vector3(-172.5, 0, -210),
+        new THREE.Vector3(172.5, 0, -210),
+        new THREE.Vector3(-127.5, 0, -210),
+        new THREE.Vector3(217.5, 0, -210),
+        new THREE.Vector3(-82.5, 0, -210),
+        new THREE.Vector3(262.5, 0, -210),
+        new THREE.Vector3(-37.5, 0, -210),
+        new THREE.Vector3(37.5, 0, 210),
+        new THREE.Vector3(-262.5, 0, 210),
+        new THREE.Vector3(82.5, 0, 210),
+        new THREE.Vector3(-217.5, 0, 210),
+        new THREE.Vector3(127.5, 0, 210),
+        new THREE.Vector3(-172.5, 0, 210),
+        new THREE.Vector3(172.5, 0, 210),
+        new THREE.Vector3(-127.5, 0, 210),
+        new THREE.Vector3(217.5, 0, 210),
+        new THREE.Vector3(-82.5, 0, 210),
+        new THREE.Vector3(262.5, 0, 210),
+        new THREE.Vector3(-37.5, 0, 210)
+    ];
 
-    //centro cima
-    const fila_arv1 = createTreeQueue();
-    fila_arv1.position.z = -30;
-    sceneGraph.add(fila_arv1);
-
-    const fila_arv2 = createTreeQueue();
-    fila_arv2.position.z = 30;
-    sceneGraph.add(fila_arv2);
-
-    //centro baixo
-    const fila_arv3 = createTreeQueue();
-    fila_arv3.position.z = -30;
-    fila_arv3.position.x = -300;
-    sceneGraph.add(fila_arv3);
-
-    const fila_arv4 = createTreeQueue();
-    fila_arv4.position.z = 30;
-    fila_arv4.position.x = -300;
-    sceneGraph.add(fila_arv4);
-
-    //esquerda
-    const fila_arv5 = createTreeQueue();
-    fila_arv5.position.z = -210;
-    sceneGraph.add(fila_arv5);
-
-    const fila_arv6 = createTreeQueue();
-    fila_arv6.position.z = -210;
-    fila_arv6.position.x = -300;
-    sceneGraph.add(fila_arv6);
-
-    //direita
-    const fila_arv7 = createTreeQueue();
-    fila_arv7.position.z = 210;
-    sceneGraph.add(fila_arv7);
-
-    const fila_arv8 = createTreeQueue();
-    fila_arv8.position.z = 210;
-    fila_arv8.position.x = -300;
-    sceneGraph.add(fila_arv8);
-
-    return sceneGraph;
+    return positions;
 }
 
 function createFilaBancos(){
@@ -1199,6 +1334,141 @@ function createFilaBancos(){
     }
 
     return fila;
+}
+
+function createFilaLampadas(){
+    const positions = [
+        new THREE.Vector3(25, 0, 30),
+        new THREE.Vector3(25, 0, -210),
+        new THREE.Vector3(25, 0, 90),
+        new THREE.Vector3(25, 0, -150),
+        new THREE.Vector3(25, 0, 150),
+        new THREE.Vector3(25, 0, -90),
+        new THREE.Vector3(25, 0, 210),
+        new THREE.Vector3(25, 0, -30),
+        new THREE.Vector3(-275, 0, 30),
+        new THREE.Vector3(-275, 0, -210),
+        new THREE.Vector3(-275, 0, 90),
+        new THREE.Vector3(-275, 0, -150),
+        new THREE.Vector3(-275, 0, 150),
+        new THREE.Vector3(-275, 0, -90),
+        new THREE.Vector3(-275, 0, 210),
+        new THREE.Vector3(-275, 0, -30),
+        new THREE.Vector3(-25, 0, 30),
+        new THREE.Vector3(-25, 0, -210),
+        new THREE.Vector3(-25, 0, 90),
+        new THREE.Vector3(-25, 0, -150),
+        new THREE.Vector3(-25, 0, 150),
+        new THREE.Vector3(-25, 0, -90),
+        new THREE.Vector3(-25, 0, 210),
+        new THREE.Vector3(-25, 0, -30),
+        new THREE.Vector3(275, 0, 30),
+        new THREE.Vector3(275, 0, -210),
+        new THREE.Vector3(275, 0, 90),
+        new THREE.Vector3(275, 0, -150),
+        new THREE.Vector3(275, 0, 150),
+        new THREE.Vector3(275, 0, -90),
+        new THREE.Vector3(275, 0, 210),
+        new THREE.Vector3(275, 0, -30)
+    ];
+
+    return positions
+}
+
+function createLampadas(){
+
+    const geometrypole = new THREE.CylinderGeometry( 0.5, 0.5, 16, 8 ); // 8 porque nao quero muitos triangulos
+    const materialpole = new THREE.MeshPhongMaterial( {color: 0x000} );
+    materialpole.castShadow = true;
+    materialpole.receiveShadow = true;
+    const pole = new THREE.InstancedMesh( geometrypole, materialpole, 32 );
+
+    pole.castShadow = true;
+    pole.position.y = 9;
+
+    const geometrybase = new THREE.CylinderGeometry(3, 3, 1, 8 );
+    const materialbase = new THREE.MeshPhongMaterial( {color: 0x000} );
+    materialbase.castShadow = true;
+    materialbase.receiveShadow = true;
+    const base = new THREE.InstancedMesh( geometrybase, materialbase, 32 );
+
+    base.castShadow = true;
+    base.position.y = 0.5;
+
+    const geometryup = new THREE.CylinderGeometry(0.1, 0.1, 1, 8 );
+    const materialup = new THREE.MeshPhongMaterial( {color: 0x000} );
+    materialup.castShadow = true;
+    materialup.receiveShadow = true;
+    const up = new THREE.InstancedMesh( geometryup, materialup, 32 );
+
+    up.castShadow = true;
+    up.position.y = 16.5;
+    up.position.x = 1;
+
+    const geometrydown = new THREE.CylinderGeometry(0, 1, 1, 8 );
+    const materialdown = new THREE.MeshPhongMaterial( {color: 0x000} );
+    materialdown.castShadow = true;
+    materialdown.receiveShadow = true;
+    const down = new THREE.InstancedMesh( geometrydown, materialdown, 32 );
+    down.castShadow = true;
+    down.position.y = 16.3;
+    down.position.x = 1.75;
+
+
+    let positions = createFilaLampadas();
+
+    let dummy1 = new THREE.Object3D();
+    let dummy2 = new THREE.Object3D();
+    let dummy3 = new THREE.Object3D();
+
+    const object = new THREE.Group()
+
+    for (let i = positions.length/2; i < positions.length; i++) {
+
+        dummy1.position.x = dummy2.position.x = dummy3.position.x = positions[i].x;
+        dummy1.position.z = dummy2.position.z = dummy3.position.z = positions[i].z;
+
+        dummy2.rotation.z = Math.PI/2;
+        dummy3.rotation.z = Math.PI/6;
+
+        dummy1.updateMatrix();
+        dummy2.updateMatrix();
+        dummy3.updateMatrix();
+
+        pole.setMatrixAt(i, dummy1.matrix);
+        base.setMatrixAt(i, dummy1.matrix);
+        up.setMatrixAt(i, dummy2.matrix);
+        down.setMatrixAt(i, dummy3.matrix);
+        
+    }
+
+    for (let i = 0; i < positions.length/2; i++) {
+        
+        dummy1.position.x = dummy2.position.x = dummy3.position.x = positions[i].x;
+        dummy1.position.z = dummy2.position.z = dummy3.position.z = positions[i].z;
+
+        dummy2.position.x -= 2;
+        dummy3.position.x -= 3.5;
+
+        dummy2.rotation.z = Math.PI/2;
+        dummy3.rotation.z = -Math.PI/6;
+
+        dummy1.updateMatrix();
+        dummy2.updateMatrix();
+        dummy3.updateMatrix();
+
+        pole.setMatrixAt(i, dummy1.matrix);
+        base.setMatrixAt(i, dummy1.matrix);
+        up.setMatrixAt(i, dummy2.matrix);
+        down.setMatrixAt(i, dummy3.matrix);
+        console.log(pole.position.x + " " + i)
+
+        
+    }
+
+    object.add(pole, base, up, down);
+
+    return object;
 }
 
 function futebolCamp(){
@@ -1220,70 +1490,117 @@ function futebolCamp(){
     const camp = new THREE.Mesh( geometry, material );
 
     //fence surouding the camp
-    importFence()
+
+/* importFence()
     .then(fence => {
         // Do something with the loaded model
         fence.scale.set(1.5,1.5,1.5); // ver disto
         fence.position.set(45,0,-62);
 
-        const fence_lar = new THREE.Group();
+        const fence_lar = new THREE.Object3D();
 
         const fence1 = fence.clone();
         fence1.position.set(45, 0, -39.2);
+        fence_lar.add(fence1);
+
         const fence2 = fence.clone();
         fence2.position.set(45, 0, -16.4);
+        fence_lar.add(fence2);
+
         const fence3 = fence.clone();
         fence3.position.set(45, 0, 6.4);
+        fence_lar.add(fence3);
+
         const fence4 = fence.clone();
         fence4.position.set(45, 0, 29.2);
+        fence_lar.add(fence4);
+
         const fence5 = fence.clone();
         fence5.position.set(45, 0, 52);
-
-        fence_lar.add(fence);
-        fence_lar.add(fence1);
-        fence_lar.add(fence2);
-        fence_lar.add(fence3);
-        fence_lar.add(fence4);
         fence_lar.add(fence5);
 
         const fence_lar_ = fence_lar.clone();
         fence_lar_.position.x = -89;
 
-        const fence_com = new THREE.Group();
+        const fence_com = new THREE.Object3D();
 
         const fence_ = fence.clone();
         fence_.rotation.y = Math.PI/2;
         fence_.position.set(-38, 0, -70);
+        fence_com.add(fence_);
 
         const fence6 = fence_.clone();
         fence6.position.set(-16, 0, -70);
+        fence_com.add(fence6);
+
         const fence7 = fence_.clone();
         fence7.position.set(6, 0, -70);
+        fence_com.add(fence7);
+
         const fence8 = fence_.clone();
         fence8.position.set(28, 0, -70);
-
-        fence_com.add(fence_);
-        fence_com.add(fence6);
-        fence_com.add(fence7);
         fence_com.add(fence8);
-        
+
         const fence_com_ = fence_com.clone();
-        fence_com.position.z = 138;
+        fence_com_.position.z = 138;
 
-        campo.add(fence_lar);
-        campo.add(fence_lar_);
-        campo.add(fence_com);
-        campo.add(fence_com_);
+        const campo_group = new THREE.Group();
+        campo_group.add(fence_lar);
+        campo_group.add(fence_lar_);
+        campo_group.add(fence_com);
+        campo_group.add(fence_com_);
 
+        campo.add(campo_group);
     })
     .catch(error => {
         console.error(error);
-    });
+    }); */
 
-    //
+    const texture_ = new THREE.TextureLoader().load('textures/bancada.jpg');
+    texture_.anisotropy = sceneElements.renderer.capabilities.getMaxAnisotropy(); // get out the blurryness
+    texture_.wrapS = THREE.RepeatWrapping;
+    texture_.wrapT = THREE.RepeatWrapping;
 
+    const material1 = new THREE.MeshBasicMaterial( {map : texture_} );
+
+    //add bancadas -> box empilhadas umas nas outras
+    const geometry0 = new THREE.BoxGeometry(10,5,120);
+    const banc0 = new THREE.Mesh( geometry0, material1);
+    banc0.position.y = 2.5;
+    banc0.position.x = 60;
+
+    const geometry1 = new THREE.BoxGeometry(10,10,120);
+    const banc1 = new THREE.Mesh(geometry1, material1);
+    banc1.position.y = 5;
+    banc1.position.x = 70;
+
+    const geometry2 = new THREE.BoxGeometry(10,15,120);
+    const banc2 = new THREE.Mesh(geometry2, material1);
+    banc2.position.y = 7.5;
+    banc2.position.x = 80;
+
+    const geometry01 = new THREE.BoxGeometry(10,5,120);
+    const banc01 = new THREE.Mesh(geometry01, material1);
+    banc01.position.y = 2.5;
+    banc01.position.x = -60;
+
+    const geometry02 = new THREE.BoxGeometry(10,10,120);
+    const banc02 = new THREE.Mesh(geometry02, material1);
+    banc02.position.y = 5;
+    banc02.position.x = -70;
+
+    const geometry03 = new THREE.BoxGeometry(10,15,120);
+    const banc03 = new THREE.Mesh(geometry03, material1);
+    banc03.position.y = 7.5;
+    banc03.position.x = -80;
     
     campo.add(camp);
+    campo.add(banc0);
+    campo.add(banc1);
+    campo.add(banc2);
+    campo.add(banc01);
+    campo.add(banc02);
+    campo.add(banc03);
 
     return campo;
 
@@ -1389,6 +1706,18 @@ function importFence(){
       });
 }
 
+/* function importAssociacaoDesporto(){
+    return new Promise((resolve, reject) => {
+        const loader = new GLTFLoader();
+        loader.load('./models/fence/scene.gltf', function (gltf) {
+          const model = gltf.scene;
+          resolve(model);
+        }, undefined, function (error) {
+          reject(error);
+        });
+      });
+} */
+
 
 // Create and insert in the scene graph the models of the 3D scene
 function load3DObjects(sceneGraph) {
@@ -1402,43 +1731,64 @@ function load3DObjects(sceneGraph) {
     sceneGraph.add(road);
 
     //car:
-    const car = createCar();  // create a car
+    const car = createCar(0xE0434C);  // create a car
+    const frontwheels = createFrontWheels();
+    frontwheels.name = "rodas";
+    car.add(frontwheels);
     sceneElements.car = car;
-    car.position.set(150, 0, 120);
+    car.name = "carro";
+    car.position.set(7.5, 0, 0);
+    car.add(sceneElements.camera);
     sceneGraph.add(car);
 
+    //second car:
+    const cardummy = createCar(0x118CAE);
+    const frontwheelsdummy = createFrontWheels();
+    cardummy.add(frontwheelsdummy);
+    cardummy.rotation.y = Math.PI;
+    cardummy.position.set(-7.5, 0, -340);
+    cardummy.name = "cardummy";
+    sceneGraph.add(cardummy);
+
+    const grupo = new THREE.Group();
+
     //building - imported
-     const building = createBuilding1();
+    const building = createBuilding1();
     building.position.set(170, 0, -70);
     sceneGraph.add(building);
+    grupo.add(building);
 
     const building1 = createBuilding1();
     building1.position.set(230, 0, -70);
-    sceneGraph.add(building1);
+    grupo.add(building1);
 
     const building2 = createBuilding2();
     building2.position.set(60, 0, -70);
-    sceneGraph.add(building2);
+    grupo.add(building2);
 
     const building3 = createBuilding2();
     building3.position.set(80, 0, -70);
-    sceneGraph.add(building3);
+    grupo.add(building3);
 
     const building4 = createBuilding2();
     building4.position.set(100, 0, -70);
-    sceneGraph.add(building4);
+    grupo.add(building4);
+
 
     const casa1 = createHouse1();
     casa1.position.set(0,0,0);
     //sceneGraph.add(casa1);
 
+    const lampadas = createLampadas();
+    sceneGraph.add(lampadas);
+
     //bancos
     const bancos = queueBenches();
-    sceneGraph.add(bancos);
+    sceneGraph.add(bancos); 
 
     //fila de arvores em todos os lados da cidade
-    const arvores = roadTrees();
-    sceneGraph.add(arvores);
+    const arvores = roadTree();
+    sceneGraph.add(arvores);  
 
     //campo de futebol
     const campo = futebolCamp();
@@ -1451,6 +1801,7 @@ function load3DObjects(sceneGraph) {
         // Do something with the loaded model
         model.scale.set(30,30,30);
         model.position.set(100,12,-130);
+        model.name= "model1";
         sceneGraph.add(model);
     })
     .catch(error => {
@@ -1463,24 +1814,90 @@ function load3DObjects(sceneGraph) {
         model.rotation.y = Math.PI;
         model.position.set(720,15,70); //x is good, falta mudar o z
         model.scale.set(400,400,400);
+        model.name= "model2";
+        sceneGraph.add(model);
+    })
+    .catch(error => {
+        console.error(error);
+    }); 
 
+    const grupo2 = grupo.clone();
+    grupo2.rotation.y = Math.PI;
+    
+    importBuilding1()
+    .then(model => {
+        // Do something with the loaded model
+        model.scale.set(30,30,30);
+        model.position.set(-70,12,-130);
+        model.name= "model1";
         sceneGraph.add(model);
     })
     .catch(error => {
         console.error(error);
     });
 
+    importBuilding3()
+    .then(model => {
+        // Do something with the loaded model
+        model.rotation.y = Math.PI;
+        model.position.set(320,15,70); //x is good, falta mudar o z
+        model.scale.set(400,400,400);
+        model.name= "model2";
+        sceneGraph.add(model);
+    })
+    .catch(error => {
+        console.error(error);
+    }); 
+
+    const grupo3 = grupo.clone();
+    grupo3.position.x = -300;
+
+    importBuilding1()
+    .then(model => {
+        // Do something with the loaded model
+        model.scale.set(30,30,30);
+        model.position.set(-70,12,190);
+        model.name= "model1";
+        sceneGraph.add(model);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+    importBuilding3()
+    .then(model => {
+        // Do something with the loaded model
+        model.rotation.y = Math.PI;
+        model.position.set(320,15,375); //x is good, falta mudar o z
+        model.scale.set(400,400,400);
+        model.name= "model2";
+        sceneGraph.add(model);
+    })
+    .catch(error => {
+        console.error(error);
+    }); 
+
+    sceneGraph.add(grupo);
+    sceneGraph.add(grupo2);
+    sceneGraph.add(grupo3);
+
     //axis helper
-    const axesHelper = new THREE.AxesHelper( 500 );
-    sceneGraph.add( axesHelper );
+/*     const axesHelper = new THREE.AxesHelper( 500 );
+    sceneGraph.add( axesHelper ); */
 
 }
 
 // Displacement value
 
-var delta = 0.1;
+function updateCar() {
+    const speed = acceleration - brake;
+    const wheelAngle = steering * Math.PI / 4;
+    // Update the car's velocity and rotation based on speed and wheel angle
+    car.translateOnAxis(car.getWorldDirection(), speed);
+    car.rotateY(wheelAngle);
+}
 
-var dispX = 0.4, dispZ = 0.4;
+var dispX = 0.2, dispZ = 0.2;
 
 function computeFrame(time) {
 
@@ -1498,34 +1915,74 @@ function computeFrame(time) {
     //}
     //light.translateX(delta);
 
+    const cardummy = sceneElements.sceneGraph.getObjectByName("cardummy");
+    
+    if (cardummy.position.z >= 340){
+        cardummy.rotation.y = 0;
+        cardummy.position.x = 7.5;
+    }
+    else
+    if (cardummy.position.z <= -340){
+        cardummy.rotation.y = Math.PI;
+        cardummy.position.x = -7.5;
+    }
+
+    cardummy.translateZ(-0.5);
+
     // CONTROLING THE CUBE WITH THE KEYBOARD
 
+    const acceleration = 0;
 
     const car = sceneElements.sceneGraph.getObjectByName("carro");
+    const rodas = car.getObjectByName("rodas");
 
     if (keyD && car.position.x < 400) {
-        car.rotation.y -= 0.01; 
+        car.rotation.y -= 0.02; 
+        rodas.rotation.y = -Math.PI/12;
         car.translateX(dispX);
     }
     if (keyW && car.position.z > -400) {
         car.translateZ(-dispZ);
     }
     if (keyA && car.position.x > -400) {
-        car.rotation.y += 0.01; 
+        car.rotation.y +=  0.02; 
+        rodas.rotation.y = Math.PI/12;
         car.translateX(-dispX);
     }
     if (keyS && car.position.z < 400) {
         car.translateZ(dispZ);
     }
 
+    if((!keyD) && (!keyA)) {
+        rodas.rotation.y = 0;
+    } 
+
+    /*     if (!keyW && !keyS){
+        if (velocity.x>0){ // acelerar para a
+            velocity.x-=accelerationFactor;
+        }
+        if (velocity.x<0){
+            velocity.x+=accelerationFactor;
+        }
+        if (velocity.z>0){
+            velocity.z-=accelerationFactor;
+        }
+        if (velocity.z<0){
+            velocity.z+=accelerationFactor;
+        }
+        
+    }
+
+    car.position.x += velocity.x;
+    car.position.z += velocity.z; */
+
+    
     // NEW --- Update control of the camera
     sceneElements.camera.lookAt(car.position.x, car.position.y + 5, car.position.z);
     sceneElements.orbitControl.target.copy(car.position);
 
     // Rendering
     helper.render(sceneElements);
-
-
 
     // Call for the next frame
     requestAnimationFrame(computeFrame);

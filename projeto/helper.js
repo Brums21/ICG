@@ -1,4 +1,4 @@
-"use strict";
+
 
 //  Adapted from Daniel Rohmer tutorial
 //
@@ -7,34 +7,18 @@
 // 		J. Madeira - April 2021
 
 export const helper = {
-
     initEmptyScene: function (sceneElements) {
-
         sceneElements.sceneGraph = new THREE.Scene();
 
         const width = window.innerWidth;
         const height = window.innerHeight;
-        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 500);
         sceneElements.camera = camera;
         camera.position.set(10, 20, 20);
         camera.lookAt(0, 0, 0);
 
-        const ambientLight = new THREE.AmbientLight('rgb(255, 255, 255)', 1.0); //mudar esta propriedade para ajustar a luz do dia!!
+        const ambientLight = new THREE.AmbientLight('rgb(255, 255, 255)', 1); //mudar esta propriedade para ajustar a luz do dia!!
         sceneElements.sceneGraph.add(ambientLight);
-
-        const spotLight = new THREE.SpotLight('rgb(255, 209, 43)', 0.8);
-        spotLight.position.set(200, 8, 0);
-        spotLight.target.position.x = 400; 
-        spotLight.target.position.z = -400;
-
-        sceneElements.sceneGraph.add(spotLight.target);
-        sceneElements.sceneGraph.add(spotLight);
-
-        spotLight.castShadow = true;
-        spotLight.shadow.mapSize.width = 2048;
-        spotLight.shadow.mapSize.height = 2048;
-
-        spotLight.name = "car_light";
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         sceneElements.renderer = renderer;
@@ -54,11 +38,13 @@ export const helper = {
 
         sceneElements.AxesHelper = new THREE.AxesHelper(5);
 
-
+        return ambientLight;
     },
 
     render: function(sceneElements) {
         sceneElements.renderer.render(sceneElements.sceneGraph, sceneElements.camera);
         sceneElements.orbitControl.target.copy(sceneElements.car.position);
+        //console.log("Number of Triangles :", sceneElements.renderer.info.render.triangles);
+        console.log("Number of calls: ",  sceneElements.renderer.info.render.calls)
     },
 };
